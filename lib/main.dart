@@ -1,4 +1,5 @@
 import 'package:contact_app/Views/First.dart';
+import 'package:contact_app/Views/INTRO_.dart';
 import 'package:contact_app/Views/second.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,8 @@ void main() {
         colorSchemeSeed: Colors.green,
       ),
       routes: {
-        "/": (context) => const MainPage_(),
+        "/": (context) => const Intro_(),
+        "Main": (context) => const MainPage_(),
         "Create_": (context) => const Contacts_(),
       },
     ),

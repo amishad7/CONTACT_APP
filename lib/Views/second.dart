@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:contact_app/Utils/Global.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Contacts_ extends StatefulWidget {
   const Contacts_({super.key});
@@ -12,6 +15,8 @@ class Contacts_ extends StatefulWidget {
 class _Contacts_State extends State<Contacts_> {
   @override
   Widget build(BuildContext context) {
+    ImagePicker picker = ImagePicker();
+    final _formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(),
       body: Stepper(
@@ -35,13 +40,27 @@ class _Contacts_State extends State<Contacts_> {
           Step(
             state: (Global.currentIndexStep == 0)
                 ? StepState.editing
-                : StepState.indexed,
+                : (Global.number == null)
+                    ? StepState.error
+                    : StepState.indexed,
             title: const Text("Mobile Number"),
-            content: TextFormField(
-              keyboardType: TextInputType.phone,
-              decoration: const InputDecoration(
-                prefixIcon: Icon(
-                  CupertinoIcons.phone,
+            content: Form(
+              key: _formKey,
+              child: TextFormField(
+                keyboardType: TextInputType.phone,
+                onSaved: (newValue) {
+                  Global.number = newValue.toString();
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(
+                    CupertinoIcons.phone,
+                  ),
                 ),
               ),
             ),
@@ -50,11 +69,16 @@ class _Contacts_State extends State<Contacts_> {
           Step(
             state: (Global.currentIndexStep == 1)
                 ? StepState.editing
-                : StepState.indexed,
+                : (Global.name == null && Global.l_name == null)
+                    ? StepState.error
+                    : StepState.indexed,
             title: const Text("Name information"),
             content: Column(
               children: [
                 TextFormField(
+                  onSaved: (newValue) {
+                    Global.name = newValue.toString();
+                  },
                   keyboardType: TextInputType.name,
                   decoration: const InputDecoration(
                     prefixIcon: Icon(
@@ -63,6 +87,9 @@ class _Contacts_State extends State<Contacts_> {
                   ),
                 ),
                 TextFormField(
+                  onSaved: (newValue) {
+                    Global.l_name = newValue.toString();
+                  },
                   keyboardType: TextInputType.name,
                   decoration: const InputDecoration(
                     prefixIcon: Icon(
@@ -77,9 +104,14 @@ class _Contacts_State extends State<Contacts_> {
           Step(
             state: (Global.currentIndexStep == 2)
                 ? StepState.editing
-                : StepState.complete,
+                : (Global.email == null)
+                    ? StepState.error
+                    : StepState.indexed,
             title: const Text("E-mail"),
             content: TextFormField(
+              onSaved: (newValue) {
+                Global.email = newValue.toString();
+              },
               keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(
                 prefixIcon: Icon(
@@ -92,14 +124,26 @@ class _Contacts_State extends State<Contacts_> {
           Step(
             state: (Global.currentIndexStep == 3)
                 ? StepState.editing
-                : StepState.complete,
-            title: const Text("Last Name"),
+                : StepState.indexed,
+            title: const Text("Picture"),
             isActive: (Global.currentIndexStep == 3) ? true : false,
-            content: GestureDetector(
-              onTap: () {},
-              child: const CircleAvatar(
+            content: InkWell(
+              onTap: () async {
+                Global.img = await picker.pickImage(
+                  source: ImageSource.gallery,
+                );
+                setState(() {});
+              },
+              child: CircleAvatar(
                 radius: 50,
-                child: Icon(CupertinoIcons.camera),
+                backgroundImage: (Global.img == null)
+                    ? null
+                    : Image.file(
+                        File(Global.img!.path),
+                      ).image,
+                child: (Global.img == null)
+                    ? const Icon(CupertinoIcons.camera)
+                    : null,
               ),
             ),
           ),
