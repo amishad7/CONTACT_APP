@@ -33,6 +33,9 @@ class _Contacts_State extends State<Contacts_> {
         physics: const BouncingScrollPhysics(),
         steps: [
           Step(
+            state: (Global.currentIndexStep == 0)
+                ? StepState.editing
+                : StepState.indexed,
             title: const Text("Mobile Number"),
             content: TextFormField(
               keyboardType: TextInputType.phone,
@@ -45,35 +48,59 @@ class _Contacts_State extends State<Contacts_> {
             isActive: (Global.currentIndexStep == 0) ? true : false,
           ),
           Step(
-            title: const Text("First Name"),
-            content: TextFormField(
-              keyboardType: TextInputType.name,
-              decoration: const InputDecoration(
-                prefixIcon: Icon(
-                  CupertinoIcons.person_circle,
+            state: (Global.currentIndexStep == 1)
+                ? StepState.editing
+                : StepState.indexed,
+            title: const Text("Name information"),
+            content: Column(
+              children: [
+                TextFormField(
+                  keyboardType: TextInputType.name,
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(
+                      CupertinoIcons.person_circle,
+                    ),
+                  ),
                 ),
-              ),
+                TextFormField(
+                  keyboardType: TextInputType.name,
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(
+                      CupertinoIcons.person,
+                    ),
+                  ),
+                ),
+              ],
             ),
             isActive: (Global.currentIndexStep == 1) ? true : false,
           ),
           Step(
-            title: const Text("Last Name"),
+            state: (Global.currentIndexStep == 2)
+                ? StepState.editing
+                : StepState.complete,
+            title: const Text("E-mail"),
             content: TextFormField(
-              keyboardType: TextInputType.name,
+              keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(
                 prefixIcon: Icon(
-                  CupertinoIcons.person,
+                  CupertinoIcons.mail_solid,
                 ),
               ),
             ),
             isActive: (Global.currentIndexStep == 2) ? true : false,
           ),
           Step(
+            state: (Global.currentIndexStep == 3)
+                ? StepState.editing
+                : StepState.complete,
             title: const Text("Last Name"),
             isActive: (Global.currentIndexStep == 3) ? true : false,
-            content: const CircleAvatar(
-              radius: 50,
-              child: Icon(CupertinoIcons.camera),
+            content: GestureDetector(
+              onTap: () {},
+              child: const CircleAvatar(
+                radius: 50,
+                child: Icon(CupertinoIcons.camera),
+              ),
             ),
           ),
         ],
