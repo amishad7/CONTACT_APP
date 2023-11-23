@@ -5,14 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class Contacts_ extends StatefulWidget {
+class Contacts_ extends StatelessWidget {
   const Contacts_({super.key});
 
-  @override
-  State<Contacts_> createState() => _Contacts_State();
-}
-
-class _Contacts_State extends State<Contacts_> {
   @override
   Widget build(BuildContext context) {
     ImagePicker picker = ImagePicker();
@@ -22,18 +17,14 @@ class _Contacts_State extends State<Contacts_> {
       body: Stepper(
         currentStep: Global.currentIndexStep,
         onStepContinue: () {
-          setState(() {
-            if (Global.currentIndexStep != 3) {
-              Global.currentIndexStep++;
-            }
-          });
+          if (Global.currentIndexStep != 3) {
+            Global.currentIndexStep++;
+          }
         },
         onStepCancel: () {
-          setState(() {
-            if (Global.currentIndexStep != 0) {
-              Global.currentIndexStep--;
-            }
-          });
+          if (Global.currentIndexStep != 0) {
+            Global.currentIndexStep--;
+          }
         },
         physics: const BouncingScrollPhysics(),
         steps: [
@@ -132,7 +123,6 @@ class _Contacts_State extends State<Contacts_> {
                 Global.img = await picker.pickImage(
                   source: ImageSource.gallery,
                 );
-                setState(() {});
               },
               child: CircleAvatar(
                 radius: 50,

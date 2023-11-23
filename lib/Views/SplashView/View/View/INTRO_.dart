@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:bouncerwidget/bouncerwidget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Intro_ extends StatefulWidget {
   const Intro_({super.key});
@@ -13,13 +15,26 @@ class Intro_ extends StatefulWidget {
 class _Intro_State extends State<Intro_> {
   @override
   Widget build(BuildContext context) {
-    Timer(Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, "Main");
-    });
-
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Text(
+            "Contact Diary ",
+            style: GoogleFonts.capriola(
+              color: Colors.green.shade400,
+              fontSize: 50,
+              letterSpacing: -3,
+            ),
+          ),
+          Text(
+            "App",
+            style: GoogleFonts.capriola(
+              color: Colors.green.shade400,
+              fontSize: 50,
+              letterSpacing: -3,
+            ),
+          ),
           const SizedBox(height: 100),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -86,6 +101,40 @@ class _Intro_State extends State<Intro_> {
                 autoPlay: true,
                 aspectRatio: 2.0,
                 enlargeCenterPage: true,
+                enableInfiniteScroll: true,
+                scrollPhysics: BouncingScrollPhysics(),
+              ),
+            ),
+          ),
+          const SizedBox(height: 50),
+          BouncingWidget(
+            child: Container(
+              alignment: Alignment.center,
+              height: 80,
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(horizontal: 30),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.green.shade200,
+                border: Border.all(
+                  color: Colors.white.withOpacity(0.5),
+                  width: 4,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.green.withOpacity(0.2),
+                    blurRadius: 24,
+                    offset: Offset(4, 0),
+                  ),
+                ],
+              ),
+              child: Text(
+                "Next >",
+                style: GoogleFonts.poppins(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40,
+                ),
               ),
             ),
           ),

@@ -38,6 +38,8 @@ dependencies:
   google_fonts:
   image_picker:
   carousel_slider:
+  provider:
+  bouncerwidget: ^0.0.5
 
 dev_dependencies:
   flutter_test:
