@@ -31,9 +31,9 @@ class Contacts_ extends StatelessWidget {
           Step(
             state: (Global.currentIndexStep == 0)
                 ? StepState.editing
-                : (Global.number == null)
-                    ? StepState.error
-                    : StepState.indexed,
+                // : (Global.number == null)
+                //     ? StepState.error
+                : StepState.indexed,
             title: const Text("Mobile Number"),
             content: Form(
               key: _formKey,
@@ -60,9 +60,9 @@ class Contacts_ extends StatelessWidget {
           Step(
             state: (Global.currentIndexStep == 1)
                 ? StepState.editing
-                : (Global.name == null && Global.l_name == null)
-                    ? StepState.error
-                    : StepState.indexed,
+                // : (Global.name == null && Global.l_name == null)
+                //     ? StepState.error
+                : StepState.indexed,
             title: const Text("Name information"),
             content: Column(
               children: [
@@ -95,9 +95,9 @@ class Contacts_ extends StatelessWidget {
           Step(
             state: (Global.currentIndexStep == 2)
                 ? StepState.editing
-                : (Global.email == null)
-                    ? StepState.error
-                    : StepState.indexed,
+                // : (Global.email == null)
+                //     ? StepState.error
+                : StepState.indexed,
             title: const Text("E-mail"),
             content: TextFormField(
               onSaved: (newValue) {

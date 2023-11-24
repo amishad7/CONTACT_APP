@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Inttro_Screen extends StatelessWidget {
-  const Inttro_Screen({super.key});
+class Introduction_Screen extends StatelessWidget {
+  const Introduction_Screen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +64,12 @@ class Inttro_Screen extends StatelessWidget {
           done: const Text("Done"),
           onDone: () async {
             // On button pressed
+            Navigator.pushReplacementNamed(context, 'Main');
             SharedPreferences preferences =
                 await SharedPreferences.getInstance();
+
+            preferences.setBool('isDark', true);
+            preferences.setBool('isVisited', true);
           },
         ),
       ),
