@@ -1,6 +1,3 @@
-import 'dart:async';
-
-import 'package:bouncerwidget/bouncerwidget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -107,7 +104,10 @@ class _Intro_State extends State<Intro_> {
             ),
           ),
           const SizedBox(height: 50),
-          BouncingWidget(
+          GestureDetector(
+            onTap: () {
+              Navigator.pushReplacementNamed(context, "Main");
+            },
             child: Container(
               alignment: Alignment.center,
               height: 80,

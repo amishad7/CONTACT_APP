@@ -16,7 +16,7 @@ class _MainPage_State extends State<MainPage_> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home"),
+        title: const Text("Home", style: TextStyle(color: Colors.green)),
         centerTitle: false,
         actions: [
           IconButton(
@@ -27,6 +27,7 @@ class _MainPage_State extends State<MainPage_> {
               (Provider.of<ThemeProvider>(context).m.isDark == false)
                   ? Icons.dark_mode
                   : Icons.sunny,
+              color: Colors.green,
             ),
           ),
         ],
@@ -35,9 +36,13 @@ class _MainPage_State extends State<MainPage_> {
         onPressed: () {
           Navigator.pushReplacementNamed(context, "Create_");
         },
-        icon: const Icon(CupertinoIcons.add),
+        icon: const Icon(
+          CupertinoIcons.add,
+          color: Colors.white,
+        ),
         label: const Text(
           "Add",
+          style: TextStyle(color: Colors.white),
         ),
       ),
       body: Container(
