@@ -1,17 +1,11 @@
 import 'package:contact_app/Views/HomeView/Provider/ThemeProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class MainPage_ extends StatefulWidget {
+class MainPage_ extends StatelessWidget {
   const MainPage_({super.key});
 
-  @override
-  State<MainPage_> createState() => _MainPage_State();
-}
-
-class _MainPage_State extends State<MainPage_> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

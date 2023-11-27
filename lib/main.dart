@@ -1,4 +1,5 @@
 import 'package:contact_app/Utils/Global.dart';
+import 'package:contact_app/Views/Formview/provider/FormProvider.dart';
 import 'package:contact_app/Views/HomeView/Provider/ThemeProvider.dart';
 import 'package:contact_app/Views/HomeView/View/First.dart';
 import 'package:contact_app/Views/Formview/view/second.dart';
@@ -18,6 +19,9 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        ListenableProvider<FormProivder>(
+          create: (context) => FormProivder(),
+        ),
         ListenableProvider<ThemeProvider>(
           create: (context) => ThemeProvider(),
         ),
