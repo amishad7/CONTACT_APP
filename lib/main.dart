@@ -1,8 +1,11 @@
 import 'package:contact_app/Utils/Global.dart';
+import 'package:contact_app/Views/Formview/provider/ContactDataModelProivder.dart';
 import 'package:contact_app/Views/Formview/provider/FormProvider.dart';
 import 'package:contact_app/Views/HomeView/Provider/ThemeProvider.dart';
 import 'package:contact_app/Views/HomeView/View/First.dart';
 import 'package:contact_app/Views/Formview/view/second.dart';
+import 'package:contact_app/Views/ProfileView/Provider/FavDataProvider.dart';
+import 'package:contact_app/Views/ProfileView/view/ProfileView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,9 +25,15 @@ void main() async {
         ListenableProvider<FormProivder>(
           create: (context) => FormProivder(),
         ),
+        ListenableProvider<FavDataProvider>(
+          create: (context) => FavDataProvider(),
+        ),
         ListenableProvider<ThemeProvider>(
           create: (context) => ThemeProvider(),
         ),
+        ListenableProvider<ContactDataProvider>(
+          create: (context) => ContactDataProvider(),
+        )
       ],
       builder: (context, _) => MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -36,8 +45,9 @@ void main() async {
         initialRoute: (isVisited) ? 'Main' : '/',
         routes: {
           "/": (context) => const Introduction_Screen(),
-          "Main": (context) => const MainPage_(),
+          "Main": (context) => MainPage_(),
           "Create_": (context) => const Contacts_(),
+          "subPage": (context) => const ProfileView(),
         },
       ),
     ),

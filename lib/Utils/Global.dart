@@ -29,6 +29,11 @@ class Global {
     color: Colors.grey,
   );
 
+  static TextEditingController nameController = TextEditingController();
+  static TextEditingController l_nameController = TextEditingController();
+  static TextEditingController emailController = TextEditingController();
+  static TextEditingController numberController = TextEditingController();
+
   static XFile? img;
   static String? name;
   static String? email;
