@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../Formview/Model/ContactDataModel.dart';
 import '../../HomeView/Provider/ThemeProvider.dart';
 
 class ProfileView extends StatelessWidget {
@@ -13,6 +14,9 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ContactDataModel data =
+        ModalRoute.of(context)!.settings.arguments as ContactDataModel;
+
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -51,7 +55,7 @@ class ProfileView extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             SelectableText(
-              'Arzen Cilnton',
+              '${data.titleName} ${data.subTitleName} ',
               style: GoogleFonts.poppins(
                 fontSize: 45,
                 fontWeight: FontWeight.w500,
@@ -67,7 +71,7 @@ class ProfileView extends StatelessWidget {
                     child: IconButton(
                       onPressed: () {
                         Share.share(
-                          "Arzen Cilnton +9196424122163",
+                          '${data.titleName} ${data.subTitleName} ${data.mobileNumber}',
                         );
                       },
                       icon: const Icon(Icons.ios_share_rounded),
@@ -83,7 +87,7 @@ class ProfileView extends StatelessWidget {
                             .addInFav();
                       },
                       icon: Icon(
-                        (Provider.of<FavDataProvider>(context, listen: false)
+                        (Provider.of<FavDataProvider>(context, listen: true)
                                 .f
                                 .isFavourite)
                             ? Icons.star
@@ -112,8 +116,8 @@ class ProfileView extends StatelessWidget {
                     child: ListTile(
                       onLongPress: () {
                         Clipboard.setData(
-                          const ClipboardData(
-                            text: '+9196424122163',
+                          ClipboardData(
+                            text: '${data.mobileNumber} ',
                           ),
                         );
                       },
@@ -121,12 +125,12 @@ class ProfileView extends StatelessWidget {
                         launchUrl(
                           Uri(
                             scheme: 'tel',
-                            path: '+9196424122163',
+                            path: '${data.mobileNumber}',
                           ),
                         );
                       },
-                      title: const Text(
-                        "+91 96424122163",
+                      title: Text(
+                        "${data.mobileNumber}",
                       ),
                       leading: const Icon(
                         Icons.call,
@@ -140,7 +144,7 @@ class ProfileView extends StatelessWidget {
                         launchUrl(
                           Uri(
                             scheme: 'sms',
-                            path: '+9196424122163',
+                            path: '${data.mobileNumber}',
                           ),
                         );
                       },
@@ -157,8 +161,8 @@ class ProfileView extends StatelessWidget {
                     child: ListTile(
                       onLongPress: () {
                         Clipboard.setData(
-                          const ClipboardData(
-                            text: 'arzen@gamil.com',
+                          ClipboardData(
+                            text: '${data.email}',
                           ),
                         );
                       },
@@ -166,12 +170,12 @@ class ProfileView extends StatelessWidget {
                         launchUrl(
                           Uri(
                             scheme: 'mailto',
-                            path: 'Arzen@gamil.com',
+                            path: '${data.email}',
                           ),
                         );
                       },
-                      title: const Text(
-                        "Arzen@gamil.com",
+                      title: Text(
+                        "${data.email}",
                       ),
                       leading: const Icon(
                         Icons.mail,

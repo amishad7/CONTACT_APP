@@ -5,7 +5,7 @@ import 'package:contact_app/Views/HomeView/Provider/ThemeProvider.dart';
 import 'package:contact_app/Views/HomeView/View/First.dart';
 import 'package:contact_app/Views/Formview/view/second.dart';
 import 'package:contact_app/Views/ProfileView/Provider/FavDataProvider.dart';
-import 'package:contact_app/Views/ProfileView/view/ProfileView.dart';
+import 'package:contact_app/Views/ProfileView/view/third.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';

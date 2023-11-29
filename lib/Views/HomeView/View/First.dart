@@ -1,20 +1,34 @@
+import 'dart:developer';
+
 import 'package:contact_app/Views/Formview/provider/ContactDataModelProivder.dart';
 import 'package:contact_app/Views/HomeView/Provider/ThemeProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../Formview/Model/ContactDataModel.dart';
 
 class MainPage_ extends StatelessWidget {
   MainPage_({super.key});
 
+  LocalAuthentication authentication = LocalAuthentication();
+
   @override
   Widget build(BuildContext context) {
-    final ContactData = Provider.of<ContactDataProvider>(context).allContacts;
+    List<ContactDataModel> ContactData =
+        Provider.of<ContactDataProvider>(context).allContacts;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home", style: TextStyle()),
+        title: const Text(
+          "Your Contacts",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         centerTitle: false,
         actions: [
           IconButton(
@@ -46,16 +60,8 @@ class MainPage_ extends StatelessWidget {
         height: double.infinity,
         child: Column(
           children: [
-            Transform.translate(
-              offset: Offset(-70, 3),
-              child: Text(
-                "your Contacts",
-                style: GoogleFonts.poppins(
-                    fontSize: 34, fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(height: 20),
-            Divider(),
+            const SizedBox(height: 10),
+            const Divider(),
             (ContactData.isEmpty)
                 ? Center(
                     child: Container(
@@ -69,21 +75,64 @@ class MainPage_ extends StatelessWidget {
                       ),
                     ),
                   )
-                : Container(
-                    child: Card(
-                      child: ListTile(
-                        onTap: () {
-                          Navigator.pushNamed(context, 'subPage');
-                        },
-                        leading: CircleAvatar(),
-                        subtitle: Text(ContactData[0].mobileNumber),
-                        trailing: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.call,
+                : ListView.builder(
+                    itemCount: Provider.of<ContactDataProvider>(context)
+                        .allContacts
+                        .length,
+                    scrollDirection: Axis.vertical,
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, i) => Container(
+                      child: Card(
+                        child: Container(
+                          height: 110,
+                          alignment: Alignment.center,
+                          child: ListTile(
+                            onLongPress: () {
+                              log('tap');
+                              PopupMenuButton(
+                                itemBuilder: (context) => [
+                                  const PopupMenuItem(
+                                    child: Text("delete"),
+                                  ),
+                                ],
+                              );
+                            },
+                            onTap: () {
+                              Navigator.pushNamed(context, 'subPage',
+                                  arguments: ContactData[i]);
+                            },
+                            leading: Container(
+                              height: MediaQuery.of(context).size.height / 4,
+                              width: MediaQuery.of(context).size.width / 7,
+                              decoration: BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            subtitle: Text(
+                              ContactData[i].mobileNumber,
+                              style: GoogleFonts.poppins(fontSize: 20),
+                            ),
+                            trailing: IconButton(
+                              onPressed: () {
+                                launchUrl(
+                                  Uri(
+                                    scheme: 'tel',
+                                    path: ContactData[i].mobileNumber,
+                                  ),
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.call,
+                              ),
+                            ),
+                            title: Text(
+                              ContactData[i].titleName,
+                              style: GoogleFonts.poppins(fontSize: 20),
+                            ),
                           ),
                         ),
-                        title: Text(ContactData[0].titleName),
                       ),
                     ),
                   ),
