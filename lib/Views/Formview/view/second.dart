@@ -8,6 +8,7 @@ import 'package:contact_app/Views/Formview/provider/FormProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Contacts_ extends StatefulWidget {
   const Contacts_({super.key});
@@ -27,7 +28,7 @@ class _Contacts_State extends State<Contacts_> {
       appBar: AppBar(
         actions: [
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 Provider.of<FormProivder>(context, listen: false).f.index = 0;
@@ -36,6 +37,18 @@ class _Contacts_State extends State<Contacts_> {
                   mobileNumber: Global.number!,
                   titleName: Global.name!,
                   subTitleName: Global.l_name!,
+                );
+
+                SharedPreferences preferences =
+                    await SharedPreferences.getInstance();
+
+                preferences.setStringList(
+                  'items',
+                  [
+                    cData.email,
+                    cData.titleName,
+                    cData.mobileNumber,
+                  ],
                 );
 
                 Provider.of<ContactDataProvider>(context, listen: false)

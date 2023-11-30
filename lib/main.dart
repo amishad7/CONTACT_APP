@@ -18,6 +18,7 @@ void main() async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
 
   bool isVisited = preferences.getBool('isVisited') ?? false;
+  bool isDark = preferences.getBool('isDark') ?? false;
 
   runApp(
     MultiProvider(
@@ -39,9 +40,7 @@ void main() async {
         debugShowCheckedModeBanner: false,
         theme: Global.AppLightTheme,
         darkTheme: Global.AppDarkTheme,
-        themeMode: (Provider.of<ThemeProvider>(context).m.isDark == true)
-            ? ThemeMode.dark
-            : ThemeMode.light,
+        themeMode: (isDark) ? ThemeMode.dark : ThemeMode.light,
         initialRoute: (isVisited) ? 'Main' : '/',
         routes: {
           "/": (context) => const Introduction_Screen(),
